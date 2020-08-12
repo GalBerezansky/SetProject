@@ -11,12 +11,8 @@
 @implementation SetCard
 
 
-/*Helper methods*/
+/*-------------------Helper methods--------------------*/
 +(BOOL) allSpecificFeaturesMatch : (NSArray *) featuresArray{
-    if([featuresArray count] != 3){
-        NSLog(@"no way jose");
-        return NO;
-    }
     id feature1 = [featuresArray objectAtIndex:0];
     id feature2 = [featuresArray objectAtIndex:1];
     id feature3 = [featuresArray objectAtIndex:2];
@@ -24,38 +20,31 @@
 }
 
 +(BOOL) allSpecificFeaturesDontMatch : (NSArray *) featuresArray{
-    if([featuresArray count] != 3){
-        NSLog(@"no way jose");
-        return NO;
-    }
     id feature1 = [featuresArray objectAtIndex:0];
     id feature2 = [featuresArray objectAtIndex:1];
     id feature3 = [featuresArray objectAtIndex:2];
     return (![feature1 isEqual:feature2] && ![feature2 isEqual:feature3] && ![feature1 isEqual: feature3]) ;
 }
 
-/**/
++(BOOL)isFeatureValid: (NSArray *) featuresArray{
+    return [SetCard allSpecificFeaturesMatch:featuresArray] ||
+           [SetCard allSpecificFeaturesDontMatch:featuresArray];
+}
+
+/*-------------------------------------------------------*/
 -(int) match:(NSArray *) otherCards{
     int score = 0;
-    if([otherCards count] != 2){
-        NSLog(@"no way jose");
-        return NO;
-    }
     SetCard * otherCard1 = [otherCards objectAtIndex:0];
     SetCard * otherCard2 = [otherCards objectAtIndex:1];
-    BOOL isShapeValid = [SetCard allSpecificFeaturesMatch:@[self.shape , otherCard1.shape , otherCard2.shape]] ||
-                        [SetCard allSpecificFeaturesDontMatch:@[self.shape , otherCard1.shape , otherCard2.shape]];
+    NSArray * shapeArray = @[self.shape , otherCard1.shape , otherCard2.shape];
+    NSArray * numberOfShapesArray = @[@(self.numberOfShapes) , @(otherCard1.numberOfShapes) ,                                    @(otherCard2.numberOfShapes)];
+    NSArray * shadingArray = @[self.shading , otherCard1.shading , otherCard2.shading];
+    NSArray * colorArray = @[self.color , otherCard1.color , otherCard2.color];
     
-    BOOL isNumberValid = [SetCard allSpecificFeaturesMatch:@[@(self.numberOfShapes) , @(otherCard1.numberOfShapes) ,                                    @(otherCard2.numberOfShapes)]] ||[SetCard allSpecificFeaturesDontMatch:@[@(self.numberOfShapes) ,                           @(otherCard1.numberOfShapes) , @(otherCard2.numberOfShapes)]];
-    
-    BOOL isShadeValid = [SetCard allSpecificFeaturesMatch:@[self.shading , otherCard1.shading , otherCard2.shading]] ||
-                        [SetCard allSpecificFeaturesDontMatch:@[self.shading , otherCard1.shading , otherCard2.shading]];
-    
-    BOOL isColorValid = [SetCard allSpecificFeaturesMatch:@[self.color , otherCard1.color , otherCard2.color]] ||
-                        [SetCard allSpecificFeaturesDontMatch:@[self.color , otherCard1.color , otherCard2.color]];
-    
-    if(isShapeValid && isNumberValid && isShadeValid && isColorValid)
-        score = 6;
+    if([SetCard isFeatureValid:shapeArray] && [SetCard isFeatureValid:numberOfShapesArray]&& [SetCard isFeatureValid:shadingArray] && [SetCard isFeatureValid:colorArray]){
+        score = 8;
+    }
+        
     return score;
 }
 
@@ -107,7 +96,7 @@
 /**Class methods*/
 
 +(NSArray *) validShapes{
-    return @[@"oval" , @"diamond" , @"squiggle"];
+    return @[@"▲" , @"●" , @"■"];
 }
 
 +(NSUInteger) maxAmountOfShapes{
@@ -115,7 +104,7 @@
 }
 
 +(NSArray *) validShadings{
-    return @[@"hollw" , @"shaded" , @"filled"];
+    return @[@"hollow" , @"shaded" , @"filled"];
 }
 
 +(NSArray *) validColors{
@@ -123,8 +112,17 @@
 }
 
 /*Instance methods*/
+
+/**
+ returns string representation of the card (withoud other properties)
+ */
+
 -(NSString *) description{
-    return [NSString stringWithFormat: @"%lu %@ %@ %@" ,self.numberOfShapes , self.shape , self.shading , self.color];
+    NSString * description = @"";
+    for(int i = 0 ; i <= self.numberOfShapes ; i++){
+        description = [description stringByAppendingString:self.shape];
+    }
+    return description;
 }
 
 @end

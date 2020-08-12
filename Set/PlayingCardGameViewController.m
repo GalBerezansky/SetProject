@@ -8,6 +8,7 @@
 
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
+#define PlayCardMatchMode 2
 
 @interface PlayingCardGameViewController ()
 
@@ -17,14 +18,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.game.matchMode = 2;
+    self.game.matchMode = PlayCardMatchMode;
 }
 
-
+/**-------------Abstract methods implemantaition--------------------*/
 -(Deck *) createDeck{
     return [[PlayingCardDeck alloc] init];
 }
 
+-(void) updateResultsLabel{
+    self.reultsLabel.text =  [self.game description];
+
+}
+
+
+-(void) updateCardButton: (UIButton * ) cardButton{
+    NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+    Card * card = [self.game cardAtIndex:cardButtonIndex];
+    [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+    [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
+    cardButton.enabled = !card.isMatched;
+}
+
+/*-----------------------------------------------*/
 
 -(NSString *)titleForCard:(Card *) card{
     return card.isChosen ? card.description : @"";
@@ -34,5 +50,7 @@
 {
     return [UIImage imageNamed:card.isChosen ? @"playcardfront" : @"playcardback"];
 }
+
+
 
 @end

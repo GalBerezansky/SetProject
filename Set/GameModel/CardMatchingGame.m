@@ -57,7 +57,6 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
 
 - (void)updateGameByScore:(Card *)card  otherCards:(NSMutableArray *)otherCards {
     int matchScore = [card match:otherCards];
-    NSLog(@"%d is match score" , matchScore);
     if(matchScore){
         self.gameStringRep = [NSString stringWithFormat:MATCHED_FORMAT , self.gameStringRep , matchScore * MATCH_BONUS]; // the string rep of a match
         self.score +=matchScore * MATCH_BONUS;
@@ -95,9 +94,6 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
                  self.gameStringRep = [NSString stringWithFormat:@"%@%@" , [self description] ,[otherCard description]];
             }
         }
-    }
-    if([otherCards count] == self.matchMode - 1){
-        NSLog(@"match");
     }
     if([otherCards count] == self.matchMode - 1){//if enough cards where choosen
         [self updateGameByScore:card otherCards:otherCards];

@@ -15,15 +15,20 @@
 
 //protected for subclasses
 
-@property (strong , nonatomic) CardMatchingGame * game; //abstract
+@property (strong , nonatomic) CardMatchingGame * game;
+
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+
+@property (weak, nonatomic) IBOutlet UILabel *reultsLabel;
 
 - (Deck *) createDeck; //abstract
 
--(NSString *)titleForCard:(Card *) card; //abstract
+- (void)updateCardButton:(UIButton *)cardButton; //abstract
 
--(UIImage *)backgroundImageForCard:(Card *) card; //abstract
+-(void) updateResultsLabel; //abstract
 
 -(void) updateUI; //implemented
+
 
 @end
 
