@@ -7,41 +7,34 @@
 //
 
 #import "ViewController.h"
-#import "PlayingCardDeck.h"
-#import "PlayingCard.h"
-#import "CardMatchingGame.h"
+
 
 #define MATCH_MODE2P 2
 #define MATCH_MODE3P 3
 
 @interface ViewController ()
-@property (strong , nonatomic) CardMatchingGame * game;
-
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UIButton *redealButton;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *matchmodeControl;
+//@property (weak, nonatomic) IBOutlet UISegmentedControl *matchmodeControl;
 @property (weak, nonatomic) IBOutlet UILabel *reultsLabel;
 @end
 
 @implementation ViewController
 
-- (CardMatchingGame *)game
-{
-    if(!_game) {
-        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]]; //couldnt initialize , used lazy initalizer.
-    }
-    return _game;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    [self updateUI];
 }
 
--(Deck *) createDeck
+-(Deck *) createDeck //Abstract Method
 {
-    return [[PlayingCardDeck alloc] init];
+    return nil;
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender {
-    _matchmodeControl.enabled = NO; //in the first touch of a card button we should disable the segment control.
     NSUInteger chooseButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chooseButtonIndex];
     [self updateUI];
@@ -49,18 +42,10 @@
 }
 
 - (IBAction)touchRedealButton:(UIButton * )sender{
-    _matchmodeControl.enabled = YES;
-    self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    self.game.matchMode = self.matchmodeControl.selectedSegmentIndex ? MATCH_MODE3P : MATCH_MODE2P;
-    [self updateUI];
+    [self viewDidLoad];
     
 }
 
-
-- (IBAction)segmentValueChanged:(id)sender {
-    self.game.matchMode = self.matchmodeControl.selectedSegmentIndex ? MATCH_MODE3P : MATCH_MODE2P;
-    //if the selected segment index is 0 it is 2 players match mode, otherwise its 3 players match mode.
-}
 
 - (void)updateCardButton:(UIButton *)cardButton {
     NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
@@ -80,13 +65,13 @@
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld" , self.game.score];
 }
 
--(NSString *)titleForCard:(Card *) card{
-    return card.isChosen ? card.description : @"";
+-(NSString *)titleForCard:(Card *) card{ //abstract
+    return nil;
 }
 
--(UIImage *)backgroundImageForCard:(Card *) card
+-(UIImage *)backgroundImageForCard:(Card *) card //abstract
 {
-    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
+    return nil;
 }
 
 @end
