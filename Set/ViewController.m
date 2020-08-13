@@ -8,10 +8,6 @@
 
 #import "ViewController.h"
 
-
-#define MATCH_MODE2P 2
-#define MATCH_MODE3P 3
-
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *redealButton;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;

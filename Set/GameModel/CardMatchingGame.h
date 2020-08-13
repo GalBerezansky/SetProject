@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Deck.h"
 #import "Card.h"
+#import "CurrentGameState.h"
+
 
 //NS_ASSUME_NONNULL_BEGIN what is it?
 
@@ -27,6 +29,8 @@
 @property (nonatomic , readonly) NSInteger score;
 
 @property (nonatomic) NSInteger matchMode;
+
+@property (nonatomic,strong) CurrentGameState * currentGameState;
 
 @end
 

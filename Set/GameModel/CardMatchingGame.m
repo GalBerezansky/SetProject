@@ -18,8 +18,9 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
 
 @interface CardMatchingGame()
 @property (nonatomic , readwrite) NSInteger score;
-@property (nonatomic,strong) NSMutableArray *cards;
 @property (nonatomic , strong) NSString * gameStringRep;
+@property (nonatomic,strong) NSMutableArray *cards;
+
 @end
 
 
@@ -39,6 +40,7 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
             if(card) [self.cards addObject:card];
             else return nil; //if draw failed we would return nil
         }
+        self.currentGameState = [self.currentGameState initWithCards:self.cards];
         self.matchMode = MATCH_MODE2P;
         self.gameStringRep = @"";
     }
@@ -100,6 +102,7 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
     }
     self.score-=COST_TO_CHOOSE;
     card.chosen = YES;
+    
 }
 
 

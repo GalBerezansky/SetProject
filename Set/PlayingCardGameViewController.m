@@ -9,10 +9,12 @@
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
 #define PlayCardMatchMode 2
+static NSString * MATCHED_FORMAT = @"Matched %@ for %d points.";
+static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
 
-@interface PlayingCardGameViewController ()
-
-@end
+//@interface PlayingCardGameViewController ()
+//
+//@end
 
 @implementation PlayingCardGameViewController
 
@@ -27,7 +29,21 @@
 }
 
 -(void) updateResultsLabel{
-    self.reultsLabel.text =  [self.game description];
+    [self.game.currentGameState updateCurrentGameState:self.game.score];
+    NSLog(@"%@" , self.game.currentGameState.cardsChoosen);
+    NSString * resultsLabelString = @"Not working";
+    for(Card * card in self.game.currentGameState.cardsChoosen){
+        NSLog(@"checking game state");
+        [resultsLabelString stringByAppendingString:card.description];
+    }
+    if(self.game.currentGameState.currentScore > 0){
+        resultsLabelString = [NSString stringWithFormat:MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentScore];
+    }
+    else if(self.game.currentGameState.currentScore < 0){
+        resultsLabelString = [NSString stringWithFormat:NOT_MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentScore];
+    }
+    NSLog(resultsLabelString);
+    self.reultsLabel.text =  resultsLabelString;
 
 }
 
