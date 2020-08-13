@@ -18,20 +18,23 @@
 @implementation CurrentGameState
 
 -(instancetype) initWithCards:(NSMutableArray *) cards{
+    NSLog(@"init currentGameState from inside");
     self = [super init];
-    if(self)
-        self.cards = cards;
+    self.cards = cards;
     return self;
 }
 
--(void) updateCurrentGameState : (NSUInteger) currentScore{
+-(void) updateCurrentRoundGameCardsChoosen{
     self.cardsChoosen = [NSMutableArray array];
     for(Card * card in self.cards){
         if(card.chosen && !card.matched){
             [self.cardsChoosen addObject:card];
         }
     }
-    self.currentScore = currentScore;
+}
+
+-(void) updateCurrentRoundGameScore : (NSUInteger) currentScore{
+    self.currentRoundScore = currentScore;
 }
 
 

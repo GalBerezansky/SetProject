@@ -29,20 +29,18 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
 }
 
 -(void) updateResultsLabel{
-    [self.game.currentGameState updateCurrentGameState:self.game.score];
-    NSLog(@"%@" , self.game.currentGameState.cardsChoosen);
-    NSString * resultsLabelString = @"Not working";
+    NSString * resultsLabelString = @"";
     for(Card * card in self.game.currentGameState.cardsChoosen){
-        NSLog(@"checking game state");
-        [resultsLabelString stringByAppendingString:card.description];
+        NSLog(@"%@" , card.description);
+        resultsLabelString  = [resultsLabelString stringByAppendingString:card.description];
     }
-    if(self.game.currentGameState.currentScore > 0){
-        resultsLabelString = [NSString stringWithFormat:MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentScore];
+    if(self.game.currentGameState.currentRoundScore > 0){
+        resultsLabelString = [NSString stringWithFormat:MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
     }
-    else if(self.game.currentGameState.currentScore < 0){
-        resultsLabelString = [NSString stringWithFormat:NOT_MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentScore];
+    else if(self.game.currentGameState.currentRoundScore < 0){
+        NSLog(@"mismatch");
+        resultsLabelString = [NSString stringWithFormat:NOT_MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
     }
-    NSLog(resultsLabelString);
     self.reultsLabel.text =  resultsLabelString;
 
 }

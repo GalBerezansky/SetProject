@@ -16,11 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic , strong) NSMutableArray<Card *> * cardsChoosen;
 @property (nonatomic) BOOL didTheCardsMatched;
-@property (nonatomic) NSUInteger currentScore;
+@property (nonatomic) NSInteger currentRoundScore;
 
 -(instancetype) initWithCards:(NSMutableArray *) cards;
 
--(void) updateCurrentGameState : (NSUInteger) currentScore;
+-(void) updateCurrentRoundGameCardsChoosen;
+
+-(void) updateCurrentRoundGameScore : (NSUInteger) currentScore;
 
 @end
 

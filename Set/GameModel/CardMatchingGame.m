@@ -18,7 +18,6 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
 
 @interface CardMatchingGame()
 @property (nonatomic , readwrite) NSInteger score;
-@property (nonatomic , strong) NSString * gameStringRep;
 @property (nonatomic,strong) NSMutableArray *cards;
 
 @end
@@ -40,9 +39,8 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
             if(card) [self.cards addObject:card];
             else return nil; //if draw failed we would return nil
         }
-        self.currentGameState = [self.currentGameState initWithCards:self.cards];
+        self.currentGameState = [[CurrentGameState alloc]initWithCards:self.cards];
         self.matchMode = MATCH_MODE2P;
-        self.gameStringRep = @"";
     }
     return self;
 }
@@ -54,55 +52,53 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
 
 -(NSString *) description;
 {
-    return self.gameStringRep;
+    return @"disabled";
 }
 
 - (void)updateGameByScore:(Card *)card  otherCards:(NSMutableArray *)otherCards {
     int matchScore = [card match:otherCards];
+    int currentRoundScore = 0;
     if(matchScore){
-        self.gameStringRep = [NSString stringWithFormat:MATCHED_FORMAT , self.gameStringRep , matchScore * MATCH_BONUS]; // the string rep of a match
-        self.score +=matchScore * MATCH_BONUS;
+        currentRoundScore =matchScore * MATCH_BONUS;
         card.matched = YES;
         for(Card * otherCard in otherCards){
             otherCard.matched = YES;
         }
     }
     else{
-        self.gameStringRep = [NSString stringWithFormat:NOT_MATCHED_FORMAT, self.gameStringRep , MISMATCH_PENALTY]; //the string rep of not a match
-        self.score -= MISMATCH_PENALTY;
+        currentRoundScore = -MISMATCH_PENALTY;
         for(Card * otherCard in otherCards){
             otherCard.chosen = NO;
         }
     }
+    [self.currentGameState updateCurrentRoundGameScore:currentRoundScore];
+    self.score += currentRoundScore;
 }
 
 - (void) chooseCardAtIndex:(NSUInteger)index
 {
-    if([self.gameStringRep containsString:@"points"]){//if the string contains the word 'points' in it means that the last round ended with an outcome - i.e a match or not a match.
-        self.gameStringRep = @"";
-    }
     Card *card = [self cardAtIndex:index];
     if(card.chosen){
         card.chosen = NO;
-        self.gameStringRep = [self.gameStringRep stringByReplacingOccurrencesOfString:[card description] withString:@""];//removes the unchoosen card from the string rep
+        [self.currentGameState updateCurrentRoundGameCardsChoosen];
         return;
     }
     NSMutableArray * otherCards = [NSMutableArray array];
-    self.gameStringRep = [NSString stringWithFormat:@"%@%@" , [self description] ,[card description]];
     for(Card * otherCard in self.cards){//create the Array for the match method of Card
         if(otherCard.isChosen && !otherCard.isMatched){
             [otherCards addObject:otherCard];
-            if(![self.gameStringRep containsString:otherCard.description]){//if the card is choosen it should be in the game string rep
-                 self.gameStringRep = [NSString stringWithFormat:@"%@%@" , [self description] ,[otherCard description]];
-            }
         }
-    }
-    if([otherCards count] == self.matchMode - 1){//if enough cards where choosen
-        [self updateGameByScore:card otherCards:otherCards];
     }
     self.score-=COST_TO_CHOOSE;
     card.chosen = YES;
-    
+    [self.currentGameState updateCurrentRoundGameCardsChoosen];
+    if([otherCards count] == self.matchMode - 1){//if enough cards where choosen
+        [self updateGameByScore:card otherCards:otherCards];
+    }
+    else{
+        [self.currentGameState updateCurrentRoundGameScore:0];
+    }
+
 }
 
 
