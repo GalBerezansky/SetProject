@@ -21,13 +21,20 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *reultsLabel;
 
+@property (strong , nonatomic) NSMutableAttributedString * gameHistoryAttributedString;
+
 - (Deck *) createDeck; //abstract
 
 - (void)updateCardButton:(UIButton *)cardButton; //abstract
 
 -(void) updateResultsLabel; //abstract
 
+-(NSAttributedString *)currentGameStateToAttributedString; //abstract
+
 -(void) updateUI; //implemented
+
+-(void) updateHistory; //implemented
+
 
 
 @end

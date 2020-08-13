@@ -22,8 +22,6 @@
 
 - (void)chooseCardAtIndex:(NSUInteger)index;
 
--(NSString *) description;
-
 -(Card *) cardAtIndex:(NSUInteger)index;
 
 @property (nonatomic , readonly) NSInteger score;

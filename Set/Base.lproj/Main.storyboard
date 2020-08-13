@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TvR-vr-Eit">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Playing Card Game View Controller-->
+        <!--Play Card Game-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PlayingCardGameViewController" sceneMemberID="viewController">
@@ -353,7 +353,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1l-c7-sTu">
-                                <rect key="frame" x="304" y="44" width="129" height="30"/>
+                                <rect key="frame" x="150" y="839" width="129" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Re-Deal">
@@ -364,16 +364,28 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5g-RZ-Xzi">
-                                <rect key="frame" x="31" y="831" width="363" height="38"/>
+                                <rect key="frame" x="20" y="835" width="134" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fYh-WA-eSV">
+                                <rect key="frame" x="341" y="838" width="58" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="History">
+                                    <color key="titleColor" red="0.0068768989290000004" green="0.095274902879999998" blue="0.57583576439999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="fko-er-aoq" kind="show" identifier="MoveToHistory" id="EsP-pI-ZlT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Play Card Game" id="wfL-C1-M7T"/>
                     <connections>
                         <outlet property="redealButton" destination="e1l-c7-sTu" id="4BH-hV-pva"/>
                         <outlet property="reultsLabel" destination="dCS-PC-dit" id="jsG-H5-pCT"/>
@@ -412,7 +424,36 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="-650"/>
+            <point key="canvasLocation" x="1042.0289855072465" y="-638.16964285714278"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="jts-yc-vlX">
+            <objects>
+                <viewController id="fko-er-aoq" customClass="HistoryViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7PL-wT-bzT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9si-fc-5GK">
+                                <rect key="frame" x="20" y="104" width="364" height="728"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Fyg-BU-lKQ"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="History" id="Rc8-7O-gkM"/>
+                    <connections>
+                        <outlet property="historyTextView" destination="9si-fc-5GK" id="W45-PJ-Wx1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DQF-qA-OUf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2018.840579710145" y="-644.19642857142856"/>
         </scene>
         <!--Set Game View Controller-->
         <scene sceneID="ihK-eb-i8Q">
@@ -578,6 +619,18 @@
                                     <action selector="touchCardButton:" destination="Dkt-Yj-zrR" eventType="touchUpInside" id="ngJ-La-EjC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shB-LD-4m8">
+                                <rect key="frame" x="125" y="407" width="78" height="97"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" backgroundImage="setcardfront">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchCardButton:" destination="Dkt-Yj-zrR" eventType="touchUpInside" id="4F1-64-uHe"/>
+                                    <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GWY-q6-gt0"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emM-3i-ts7">
                                 <rect key="frame" x="211" y="407" width="78" height="97"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -699,50 +752,48 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWz-TN-4MG">
-                                <rect key="frame" x="20" y="831" width="363" height="38"/>
+                                <rect key="frame" x="20" y="831" width="146" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XO4-E0-vpr">
-                                <rect key="frame" x="298" y="54" width="129" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zaz-yk-VEK">
+                                <rect key="frame" x="143" y="835" width="129" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Re-Deal">
                                     <color key="titleColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="touchRedealButton:" destination="Dkt-Yj-zrR" eventType="touchUpInside" id="IES-lx-FDj"/>
-                                    <action selector="touchRedealButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wB5-JL-v7d"/>
+                                    <action selector="touchRedealButton:" destination="Dkt-Yj-zrR" eventType="touchUpInside" id="6c5-vO-H0f"/>
+                                    <action selector="touchRedealButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GaQ-zt-Qc5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTd-oh-IQe">
+                                <rect key="frame" x="346" y="831" width="58" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="History">
+                                    <color key="titleColor" red="0.0068768989290000004" green="0.095274902879999998" blue="0.57583576439999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="rtT-5N-WHo" kind="show" identifier="MoveToHistory" id="SFe-Qw-rnV"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NL1-s4-LTy">
-                                <rect key="frame" x="23" y="749" width="352" height="74"/>
+                                <rect key="frame" x="31" y="749" width="352" height="74"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shB-LD-4m8">
-                                <rect key="frame" x="125" y="407" width="78" height="97"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" backgroundImage="setcardfront">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="touchCardButton:" destination="Dkt-Yj-zrR" eventType="touchUpInside" id="4F1-64-uHe"/>
-                                    <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GWY-q6-gt0"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.84465640779999995" green="0.51457053419999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="ASW-0N-cka"/>
                     </view>
                     <navigationItem key="navigationItem" id="Pnj-mm-DZx"/>
                     <connections>
-                        <outlet property="redealButton" destination="XO4-E0-vpr" id="u92-T4-0mc"/>
                         <outlet property="reultsLabel" destination="NL1-s4-LTy" id="KN4-ZV-lEw"/>
                         <outlet property="scoreLabel" destination="aWz-TN-4MG" id="kaF-Jf-ICw"/>
                         <outletCollection property="cardButtons" destination="gjU-Kj-oED" id="rxB-tV-liD"/>
@@ -773,7 +824,72 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6s-AT-8jU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="67.633928571428569"/>
+            <point key="canvasLocation" x="1042.0289855072465" y="118.52678571428571"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="nd1-wW-Qvh">
+            <objects>
+                <viewController id="rtT-5N-WHo" customClass="HistoryViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9N5-CU-5K6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IRf-WX-pcZ">
+                                <rect key="frame" x="20" y="110" width="364" height="728"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="mmN-V8-ibQ"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="History" id="snv-vk-yCd"/>
+                    <connections>
+                        <outlet property="historyTextView" destination="IRf-WX-pcZ" id="gfA-bg-ZZT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A8G-ei-M76" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2115.9420289855075" y="118.52678571428571"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ktB-58-9UA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TvR-vr-Eit" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Tm3-Zl-5cQ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Qzv-g7-fjP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cja-wZ-edh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="-638.16964285714278"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6Vt-LB-Rwb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="W4r-Uc-66e" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dUr-JQ-3xJ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Dkt-Yj-zrR" kind="relationship" relationship="rootViewController" id="jNq-2U-opB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TD7-vD-90i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="118.52678571428571"/>
         </scene>
     </scenes>
     <resources>

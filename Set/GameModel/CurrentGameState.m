@@ -18,7 +18,6 @@
 @implementation CurrentGameState
 
 -(instancetype) initWithCards:(NSMutableArray *) cards{
-    NSLog(@"init currentGameState from inside");
     self = [super init];
     self.cards = cards;
     return self;

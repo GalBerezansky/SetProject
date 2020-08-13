@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "HistoryViewController.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *redealButton;
@@ -16,6 +17,7 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    self.gameHistoryAttributedString = [[NSMutableAttributedString alloc] initWithString:@""];
     [super viewDidLoad];
     self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self updateUI];
@@ -26,9 +28,15 @@
     return nil;
 }
 
-
-- (void)updateCardButton:(UIButton *)cardButton { //Abstract Method
+- (void)updateCardButton:(UIButton *)cardButton {} //Abstract Method
     
+-(void) updateResultsLabel{
+    self.reultsLabel.attributedText =  [self currentGameStateToAttributedString];
+    [self updateHistory];
+}
+
+-(NSAttributedString *)currentGameStateToAttributedString{
+    return nil;
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender {
@@ -52,7 +60,21 @@
     [self updateResultsLabel];
 }
 
--(void) updateResultsLabel{} //abstract
+-(void) updateHistory{
+    NSAttributedString * N = [[NSAttributedString alloc ] initWithString: @"\n"];
+    [self.gameHistoryAttributedString appendAttributedString:N];
+    [self.gameHistoryAttributedString appendAttributedString:[self currentGameStateToAttributedString]];
+    NSLog(@"%@" ,self.gameHistoryAttributedString.string);
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"MoveToHistory"]){
+        if([segue.destinationViewController isKindOfClass:[HistoryViewController class]]){
+            HistoryViewController * hvc = (HistoryViewController * )segue.destinationViewController;
+            hvc.historyAttributedString = self.gameHistoryAttributedString;
+        }
+    }
+}
 
 
 @end

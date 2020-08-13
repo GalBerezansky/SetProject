@@ -50,10 +50,6 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
     return (index < [self.cards count]) ? self.cards[index]: nil;
 }
 
--(NSString *) description;
-{
-    return @"disabled";
-}
 
 - (void)updateGameByScore:(Card *)card  otherCards:(NSMutableArray *)otherCards {
     int matchScore = [card match:otherCards];
@@ -77,6 +73,7 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
 
 - (void) chooseCardAtIndex:(NSUInteger)index
 {
+    [self.currentGameState updateCurrentRoundGameScore:0];
     Card *card = [self cardAtIndex:index];
     if(card.chosen){
         card.chosen = NO;
@@ -95,10 +92,6 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
     if([otherCards count] == self.matchMode - 1){//if enough cards where choosen
         [self updateGameByScore:card otherCards:otherCards];
     }
-    else{
-        [self.currentGameState updateCurrentRoundGameScore:0];
-    }
-
 }
 
 

@@ -9,6 +9,7 @@
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
 #define PlayCardMatchMode 2
+
 static NSString * MATCHED_FORMAT = @"Matched %@ for %d points.";
 static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
 
@@ -28,22 +29,6 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
     return [[PlayingCardDeck alloc] init];
 }
 
--(void) updateResultsLabel{
-    NSString * resultsLabelString = @"";
-    for(Card * card in self.game.currentGameState.cardsChoosen){
-        NSLog(@"%@" , card.description);
-        resultsLabelString  = [resultsLabelString stringByAppendingString:card.description];
-    }
-    if(self.game.currentGameState.currentRoundScore > 0){
-        resultsLabelString = [NSString stringWithFormat:MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
-    }
-    else if(self.game.currentGameState.currentRoundScore < 0){
-        NSLog(@"mismatch");
-        resultsLabelString = [NSString stringWithFormat:NOT_MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
-    }
-    self.reultsLabel.text =  resultsLabelString;
-
-}
 
 
 -(void) updateCardButton: (UIButton * ) cardButton{
@@ -55,6 +40,20 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
 }
 
 /*-----------------------------------------------*/
+
+-(NSAttributedString *)currentGameStateToAttributedString;{
+    NSString * resultsLabelString = @"";
+    for(Card * card in self.game.currentGameState.cardsChoosen){
+        resultsLabelString  = [resultsLabelString stringByAppendingString:card.description];
+    }
+    if(self.game.currentGameState.currentRoundScore > 0){
+        resultsLabelString = [NSString stringWithFormat:MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
+    }
+    else if(self.game.currentGameState.currentRoundScore < 0){
+        resultsLabelString = [NSString stringWithFormat:NOT_MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
+    }
+    return [[NSAttributedString alloc ] initWithString: resultsLabelString];
+}
 
 -(NSString *)titleForCard:(Card *) card{
     return card.isChosen ? card.description : @"";
