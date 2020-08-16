@@ -166,9 +166,8 @@
 				9732992224E81F920062690A /* ViewController */,
 				97B81FD224E3D22C004FC0A2 /* GameModel */,
 			);
-			name = Set;
-			path = /Users/gberezansky/Desktop/IOSDevBootcamp/SetProject/Set/Set;
-			sourceTree = "<absolute>";
+			path = Set;
+			sourceTree = SOURCE_ROOT;
 		};
 		97B81FD224E3D22C004FC0A2 /* GameModel */ = {
 			isa = PBXGroup;
