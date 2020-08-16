@@ -19,49 +19,47 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
 
 @implementation PlayingCardGameViewController
 
+#pragma mark Instance methods
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.game.matchMode = PlayCardMatchMode;
+  [super viewDidLoad];
+  self.game.matchMode = PlayCardMatchMode;
 }
 
-/**-------------Abstract methods implemantaition--------------------*/
+#pragma mark Abstract methods implementation
 -(Deck *) createDeck{
-    return [[PlayingCardDeck alloc] init];
+  return [[PlayingCardDeck alloc] init];
 }
-
-
 
 -(void) updateCardButton: (UIButton * ) cardButton{
-    NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-    Card * card = [self.game cardAtIndex:cardButtonIndex];
-    [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-    [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-    cardButton.enabled = !card.isMatched;
+  NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+  Card * card = [self.game cardAtIndex:cardButtonIndex];
+  [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+  [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
+  cardButton.enabled = !card.isMatched;
 }
-
-/*-----------------------------------------------*/
 
 -(NSAttributedString *)currentGameStateToAttributedString;{
-    NSString * resultsLabelString = @"";
-    for(Card * card in self.game.currentGameState.cardsChoosen){
-        resultsLabelString  = [resultsLabelString stringByAppendingString:card.description];
-    }
-    if(self.game.currentGameState.currentRoundScore > 0){
-        resultsLabelString = [NSString stringWithFormat:MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
-    }
-    else if(self.game.currentGameState.currentRoundScore < 0){
-        resultsLabelString = [NSString stringWithFormat:NOT_MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
-    }
-    return [[NSAttributedString alloc ] initWithString: resultsLabelString];
+  NSString * resultsLabelString = @"";
+  for(Card * card in self.game.currentGameState.cardsChoosenNotMatched){
+    resultsLabelString  = [resultsLabelString stringByAppendingString:card.description];
+  }
+  if(self.game.currentGameState.currentRoundScore > 0){
+    resultsLabelString = [NSString stringWithFormat:MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
+  }
+  else if(self.game.currentGameState.currentRoundScore < 0){
+    resultsLabelString = [NSString stringWithFormat:NOT_MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
+  }
+  return [[NSAttributedString alloc ] initWithString: resultsLabelString];
 }
 
+#pragma mark Helper private methods
 -(NSString *)titleForCard:(Card *) card{
-    return card.isChosen ? card.description : @"";
+  return card.isChosen ? card.description : @"";
 }
 
 -(UIImage *)backgroundImageForCard:(Card *) card
 {
-    return [UIImage imageNamed:card.isChosen ? @"playcardfront" : @"playcardback"];
+  return [UIImage imageNamed:card.isChosen ? @"playcardfront" : @"playcardback"];
 }
 
 

@@ -25,14 +25,9 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
 
 @implementation CardMatchingGame
 
-- (NSMutableArray *)cards
-{
-    return _cards;
-}
-
+#pragma mark Instance methods
 -(instancetype) initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
-    self = [super init];
-    if(self){
+    if(self = [super init]){
         self.cards = [[NSMutableArray alloc] init];
         for(NSUInteger i = 0 ; i < count ; i++){
             Card * card = [deck drawRandomCard];
@@ -40,7 +35,7 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
             else return nil; //if draw failed we would return nil
         }
         self.currentGameState = [[CurrentGameState alloc]initWithCards:self.cards];
-        self.matchMode = MATCH_MODE2P;
+        self.matchMode = MATCH_MODE2P;//by default it is 2-card-match mode , can be changed.
     }
     return self;
 }
@@ -48,27 +43,6 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
 -(Card *)cardAtIndex:(NSUInteger)index
 {
     return (index < [self.cards count]) ? self.cards[index]: nil;
-}
-
-
-- (void)updateGameByScore:(Card *)card  otherCards:(NSMutableArray *)otherCards {
-    int matchScore = [card match:otherCards];
-    int currentRoundScore = 0;
-    if(matchScore){
-        currentRoundScore =matchScore * MATCH_BONUS;
-        card.matched = YES;
-        for(Card * otherCard in otherCards){
-            otherCard.matched = YES;
-        }
-    }
-    else{
-        currentRoundScore = -MISMATCH_PENALTY;
-        for(Card * otherCard in otherCards){
-            otherCard.chosen = NO;
-        }
-    }
-    [self.currentGameState updateCurrentRoundGameScore:currentRoundScore];
-    self.score += currentRoundScore;
 }
 
 - (void) chooseCardAtIndex:(NSUInteger)index
@@ -92,6 +66,28 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
     if([otherCards count] == self.matchMode - 1){//if enough cards where choosen
         [self updateGameByScore:card otherCards:otherCards];
     }
+}
+
+#pragma mark Private helper methods
+
+- (void)updateGameByScore:(Card *)card  otherCards:(NSMutableArray *)otherCards {
+    int matchScore = [card match:otherCards];
+    int currentRoundScore = 0;
+    if(matchScore){
+        currentRoundScore =matchScore * MATCH_BONUS;
+        card.matched = YES;
+        for(Card * otherCard in otherCards){
+            otherCard.matched = YES;
+        }
+    }
+    else{
+        currentRoundScore = -MISMATCH_PENALTY;
+        for(Card * otherCard in otherCards){
+            otherCard.chosen = NO;
+        }
+    }
+    [self.currentGameState updateCurrentRoundGameScore:currentRoundScore];
+    self.score += currentRoundScore;
 }
 
 

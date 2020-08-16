@@ -14,14 +14,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CurrentGameState : NSObject
 
-@property (nonatomic , strong) NSMutableArray<Card *> * cardsChoosen;
-@property (nonatomic) BOOL didTheCardsMatched;
-@property (nonatomic) NSInteger currentRoundScore;
-
 -(instancetype) initWithCards:(NSMutableArray *) cards;
 
+///An array of the choosen and not matched cards
+@property (nonatomic , strong) NSMutableArray<Card *> * cardsChoosenNotMatched;
+
+///Returns true if the current set of cards matched , false otherwise
+@property (nonatomic) BOOL didTheCardsMatched;
+
+///holds the score that the current cards choosen gave.
+@property (nonatomic) NSInteger currentRoundScore;
+
+///update the current cards choosen and not matched
 -(void) updateCurrentRoundGameCardsChoosen;
 
+///update the current round score
 -(void) updateCurrentRoundGameScore : (NSUInteger) currentScore;
 
 @end

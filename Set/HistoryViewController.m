@@ -11,12 +11,12 @@
 @implementation HistoryViewController
 
 -(void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    [self updateUI];
-    
+  [super viewWillAppear:YES];
+  [self updateUI];
+  
 }
 
 -(void) updateUI{
-    self.historyTextView.attributedText = self.historyAttributedString;
+  self.historyTextView.attributedText = self.historyAttributedString;
 }
 @end

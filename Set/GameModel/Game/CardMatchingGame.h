@@ -12,24 +12,28 @@
 #import "CurrentGameState.h"
 
 
-//NS_ASSUME_NONNULL_BEGIN what is it?
+NS_ASSUME_NONNULL_BEGIN
 
 @interface CardMatchingGame : NSObject
 
-
 - (instancetype) initWithCardCount: (NSUInteger)count
-                         usingDeck: (Deck *)deck ;//NS_DESIGNATED_INITIALIZER
+                         usingDeck: (Deck *)deck; // NS_DESIGNATED_INITIALIZER
 
+///Chooses a card at an index and updates the game state accordingly.
 - (void)chooseCardAtIndex:(NSUInteger)index;
 
+///Returns a card at a given index.
 -(Card *) cardAtIndex:(NSUInteger)index;
 
+///The score of the game.
 @property (nonatomic , readonly) NSInteger score;
 
+///The mode of the game (2- cars match or 3-cards match)
 @property (nonatomic) NSInteger matchMode;
 
+///holds information of the current game state fro the results feature.
 @property (nonatomic,strong) CurrentGameState * currentGameState;
 
 @end
 
-//NS_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

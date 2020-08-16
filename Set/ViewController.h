@@ -7,33 +7,42 @@
 //
 //Abstract class
 
-#import <UIKit/UIKit.h>
 #import "Deck.h"
 #import "CardMatchingGame.h"
+#import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController//Abstract class
 
-//protected for subclasses
-
+///Holds the object that runs the game.
 @property (strong , nonatomic) CardMatchingGame * game;
 
+///The cards buttons array.
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
+///The result label.
 @property (weak, nonatomic) IBOutlet UILabel *reultsLabel;
 
+///Holds the attributed string that represents the game history.
 @property (strong , nonatomic) NSMutableAttributedString * gameHistoryAttributedString;
 
-- (Deck *) createDeck; //abstract
-
-- (void)updateCardButton:(UIButton *)cardButton; //abstract
-
--(void) updateResultsLabel; //abstract
-
--(NSAttributedString *)currentGameStateToAttributedString; //abstract
-
+///Updates the UI after each round.
 -(void) updateUI; //implemented
 
+///Updates the history tab when needed.
 -(void) updateHistory; //implemented
+
+///Creates the deck for the game (with random drawings).
+- (Deck *) createDeck; //Abstract method
+
+///Updates the card game UI
+- (void)updateCardButton:(UIButton *)cardButton;//Abstract method
+
+///Updates the reults label
+-(void) updateResultsLabel; //abstract
+
+///Takes the currentGameState (object) from game and translates it into an attributed string.
+-(NSAttributedString *)currentGameStateToAttributedString; //Abstract method
+
 
 
 

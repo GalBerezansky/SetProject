@@ -12,12 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HistoryViewController :  UIViewController
 
+///The attributed string that represents the history of the game.
 @property (strong , nonatomic) NSAttributedString * historyAttributedString;
+
+///The UITextView that represents the history of the game.
 @property (weak, nonatomic) IBOutlet UITextView *historyTextView;
-
-
--(void) updateUI;
-
 
 @end
 

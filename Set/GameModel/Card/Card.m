@@ -11,7 +11,7 @@
 @implementation Card
 
 -(int)match: (NSArray *) otherCards{ //abstract method
-    return 0;
+  return 0;
 }
 
 @end
